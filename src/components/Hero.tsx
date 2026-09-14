@@ -1,6 +1,7 @@
 import logo from "@/assets/logo.png";
 import { Download, Gamepad2, Trophy } from "lucide-react";
 import { useFirebaseData } from "@/hooks/useFirebaseData";
+import { motion } from "framer-motion";
 
 interface HeroData {
   title: string;
@@ -80,34 +81,70 @@ const Hero = () => {
       />
 
       <div className="relative z-10 flex flex-col items-center gap-6 max-w-3xl">
-        {/* App Logo */}
-        <div className="relative">
-          <div
-            className="absolute inset-0 rounded-2xl blur-2xl opacity-60"
+        {/* App Logo with GLOW + BOUNCE */}
+        <motion.div 
+          className="relative"
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
+          {/* Animated Glow behind logo */}
+          <motion.div
+            className="absolute inset-0 rounded-2xl blur-2xl"
             style={{ background: "var(--gradient-brand)" }}
+            animate={{
+              scale: [1, 1.3, 1],
+              opacity: [0.6, 0.9, 0.6],
+            }}
+            transition={{
+              duration: 2.5,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
           />
-          <img
+          {/* Logo with bounce */}
+          <motion.img
             src={logo}
             alt="LocalLeague"
             className="relative w-24 h-24 sm:w-32 sm:h-32 rounded-2xl object-cover shadow-2xl"
+            animate={{
+              y: [0, -12, 0],
+            }}
+            transition={{
+              duration: 3,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+            whileHover={{ scale: 1.05 }}
           />
-        </div>
+        </motion.div>
 
-        {/* Title */}
-        <h1
+        {/* Title with entry animation */}
+        <motion.h1
           className="font-black tracking-wider gradient-brand-text leading-none text-center whitespace-nowrap"
           style={{
             fontFamily: "Rajdhani, sans-serif",
             fontSize: "clamp(2.5rem, 10vw, 7rem)",
           }}
+          initial={{ y: 30, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.3, duration: 0.6 }}
         >
           {data.title || defaultHero.title}
-        </h1>
+        </motion.h1>
 
-        {/* Tag chips */}
-        <div className="flex flex-wrap justify-center gap-2 mt-1">
+        {/* Tag chips with stagger */}
+        <motion.div 
+          className="flex flex-wrap justify-center gap-2 mt-1"
+          initial="hidden"
+          animate="visible"
+          variants={{
+            hidden: {},
+            visible: { transition: { staggerChildren: 0.1, delayChildren: 0.5 } }
+          }}
+        >
           {tags.map((tag) => (
-            <span
+            <motion.span
               key={tag}
               className="px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase"
               style={{
@@ -117,14 +154,24 @@ const Hero = () => {
                 fontFamily: "Rajdhani, sans-serif",
                 letterSpacing: "0.12em",
               }}
+              variants={{
+                hidden: { y: 10, opacity: 0 },
+                visible: { y: 0, opacity: 1 }
+              }}
             >
               {tag}
-            </span>
+            </motion.span>
           ))}
-        </div>
+        </motion.div>
 
         {/* CTA Button */}
-        <div id="download" className="flex flex-col sm:flex-row gap-4 items-center mt-2">
+        <motion.div 
+          id="download" 
+          className="flex flex-col sm:flex-row gap-4 items-center mt-2"
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.8, duration: 0.5 }}
+        >
           <a
             href={data.downloadUrl || defaultHero.downloadUrl}
             download={data.fileName || defaultHero.fileName}
@@ -140,7 +187,7 @@ const Hero = () => {
             <Download size={22} strokeWidth={2.5} className="group-hover:animate-bounce" />
             Download App
           </a>
-        </div>
+        </motion.div>
 
         {/* Stats row */}
         <div className="flex gap-8 sm:gap-12 mt-4">
