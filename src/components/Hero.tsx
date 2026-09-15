@@ -18,7 +18,7 @@ const defaultHero: HeroData = {
   tagline: "",
   downloadUrl: "#download",
   fileName: "LocalLeague.apk",
-  tags: ["BGMI", "Tournaments", "Cash Prizes"],
+  tags: ["BGMI", "Community", "Tournaments"],
 };
 
 const Hero = () => {
@@ -189,11 +189,11 @@ const Hero = () => {
           </a>
         </motion.div>
 
-        {/* Stats row */}
+        {/* Stats row - SAFE VERSION */}
         <div className="flex gap-8 sm:gap-12 mt-4">
           {[
             { icon: <Gamepad2 size={18} />, label: "BGMI Tournaments" },
-            { icon: <Trophy size={18} />, label: "Cash Prizes" },
+            { icon: <Trophy size={18} />, label: "Community League" },
           ].map((item) => (
             <div key={item.label} className="flex items-center gap-2 text-sm text-muted-foreground">
               <span style={{ color: "hsl(var(--primary))" }}>{item.icon}</span>
