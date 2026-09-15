@@ -15,9 +15,9 @@ const features = [
   },
   {
     icon: <Gift size={28} />,
-    title: "Cash Prizes",
+    title: "Community Rewards",
     description:
-      "Win cash prizes directly transferred to your wallet. Low entry fees, high prize pools.",
+      "Win rewards, recognition and leaderboard glory. Free to join, fair competition for all.",
   },
   {
     icon: <Zap size={28} />,
